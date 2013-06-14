@@ -16,6 +16,10 @@
 
     // Override point for customization after application launch.
 
+    // Fade out the status bar.
+    [[UIApplication sharedApplication] setStatusBarHidden:YES
+                                            withAnimation:UIStatusBarAnimationFade];
+
     CGRect screenRect = [[self window] bounds];
 
     // Create the UIScrollView to have the size of the window, matching its size.
