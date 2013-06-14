@@ -22,6 +22,14 @@
     //[view setBackgroundColor:[UIColor redColor]];
     [self.window addSubview:view];
 
+    // The view needs to become first responder to respond to shake events.
+    BOOL success = [view becomeFirstResponder];
+    if (success) {
+        NSLog(@"HypnosisView became the first responder.");
+    } else {
+        NSLog(@"Could not become first responder.");
+    }
+
     //CGRect anotherFrame = CGRectMake(20, 30, 50, 50);
     //HypnosisView *anotherView = [[HypnosisView alloc] initWithFrame:anotherFrame];
     //[anotherView setBackgroundColor:[UIColor blueColor]];

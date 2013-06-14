@@ -10,4 +10,6 @@
 
 @interface HypnosisView : UIView
 
+@property (nonatomic) UIColor *circleColor;
+
 @end
