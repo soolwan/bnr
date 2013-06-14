@@ -16,11 +16,29 @@
 
     // Override point for customization after application launch.
 
+    CGRect screenRect = [[self window] bounds];
+
+    // Create the UIScrollView to have the size of the window, matching its size.
+    UIScrollView *scrollView = [[UIScrollView alloc] initWithFrame:screenRect];
+    [[self window] addSubview:scrollView];
+
     //CGRect viewFrame = CGRectMake(160, 240, 100, 150);
     //HypnosisView *view = [[HypnosisView alloc] initWithFrame:viewFrame];
-    HypnosisView *view = [[HypnosisView alloc] initWithFrame:[[self window] bounds]];
+    //HypnosisView *view = [[HypnosisView alloc] initWithFrame:[[self window] bounds]];
     //[view setBackgroundColor:[UIColor redColor]];
-    [self.window addSubview:view];
+    //[self.window addSubview:view];
+
+    // Create the HypnosisView with a frame that is twice the size of the screen.
+    CGRect bigRect = screenRect;
+    bigRect.size.width *= 2.0;
+    bigRect.size.height *= 2.0;
+    HypnosisView *view = [[HypnosisView alloc] initWithFrame:bigRect];
+
+    // Add the HypnosisView as a subview of the scrollView instead of the window.
+    [scrollView addSubview:view];
+
+    // Tell the scrollView how big its virtual world is.
+    [scrollView setContentSize:bigRect.size];
 
     // The view needs to become first responder to respond to shake events.
     BOOL success = [view becomeFirstResponder];
