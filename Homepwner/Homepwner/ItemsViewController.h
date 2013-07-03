@@ -7,14 +7,15 @@
 //
 
 #import <Foundation/Foundation.h>
+#import "DetailViewController.h"  // For pushing on the UINavigationController stack.
 
 @interface ItemsViewController : UITableViewController
-{
-    IBOutlet UIView *headerView;  // Strong reference. Top level item in .xib.
-}
+//{
+    //IBOutlet UIView *headerView;  // Strong reference. Top level item in .xib.
+//}
 
-- (UIView *)headerView;
+//- (UIView *)headerView;
 - (IBAction)addNewItem:(id)sender;
-- (IBAction)toggleEditingMode:(id)sender;
+//- (IBAction)toggleEditingMode:(id)sender;
 
 @end

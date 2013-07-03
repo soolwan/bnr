@@ -25,6 +25,20 @@
         //for (int i = 0; i < 5; i++) {
         //    [[BNRItemStore sharedStore] createItem];
         //}
+
+        UINavigationItem *n = [self navigationItem];
+        [n setTitle:@"Homepwner"];
+
+        // Create a new bar button item that will send
+        // addNewItem: to ItemsViewController.
+        UIBarButtonItem *bbi = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemAdd
+                                                                             target:self
+                                                                             action:@selector(addNewItem:)];
+
+        // Set this bar button item as the right item in the navigationItem.
+        [[self navigationItem] setRightBarButtonItem:bbi];
+
+        [[self navigationItem] setLeftBarButtonItem:[self editButtonItem]];
     }
 
     return self;
@@ -35,16 +49,22 @@
     return [self init];
 }
 
-- (UIView *)headerView
+- (void)viewWillAppear:(BOOL)animated
 {
-    // If we haven't loaded the headerView yet...
-    if (!headerView) {
-        // Load HeaderView.xib
-        [[NSBundle mainBundle] loadNibNamed:@"HeaderView" owner:self options:nil];
-    }
-
-    return headerView;
+    [super viewWillAppear:animated];
+    [[self tableView] reloadData];
 }
+
+//- (UIView *)headerView
+//{
+//    // If we haven't loaded the headerView yet...
+//    if (!headerView) {
+//        // Load HeaderView.xib
+//        [[NSBundle mainBundle] loadNibNamed:@"HeaderView" owner:self options:nil];
+//    }
+//
+//    return headerView;
+//}
 
 #pragma mark - UITableView Methods
 
@@ -77,16 +97,16 @@
     return cell;
 }
 
-- (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section
-{
-    return [self headerView];
-}
-
-- (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section
-{
-    // The height of the header view should be determined from the height of the view in the XIB file.
-    return [[self headerView] bounds].size.height;
-}
+//- (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section
+//{
+//    return [self headerView];
+//}
+//
+//- (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section
+//{
+//    // The height of the header view should be determined from the height of the view in the XIB file.
+//    return [[self headerView] bounds].size.height;
+//}
 
 - (void)tableView:(UITableView *)tableView
 commitEditingStyle:(UITableViewCellEditingStyle)editingStyle
@@ -113,21 +133,35 @@ moveRowAtIndexPath:(NSIndexPath *)sourceIndexPath
                                         toIndex:[destinationIndexPath row]];
 }
 
-- (IBAction)toggleEditingMode:(id)sender
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    // If we are currently in editing mode...
-    if ([self isEditing]) {
-        // Change button text to inform user of state.
-        [sender setTitle:@"Edit" forState:UIControlStateNormal];
-        // Turn off editing mode.
-        [self setEditing:NO animated:YES];
-    } else {
-        // Change text of button to inform user of state.
-        [sender setTitle:@"Done" forState:UIControlStateNormal];
-        // Enter editing mode.
-        [self setEditing:YES animated:YES];
-    }
+    DetailViewController *detailViewController = [[DetailViewController alloc] init];
+
+    NSArray *items = [[BNRItemStore sharedStore] allItems];
+    BNRItem *selectedItem = [items objectAtIndex:[indexPath row]];
+
+    // Give detail view controller a pointer to the item object in row.
+    [detailViewController setItem:selectedItem];
+
+    // Push it onto the top of the navigation controller's stack.
+    [[self navigationController] pushViewController:detailViewController animated:YES];
 }
+
+//- (IBAction)toggleEditingMode:(id)sender
+//{
+//    // If we are currently in editing mode...
+//    if ([self isEditing]) {
+//        // Change button text to inform user of state.
+//        [sender setTitle:@"Edit" forState:UIControlStateNormal];
+//        // Turn off editing mode.
+//        [self setEditing:NO animated:YES];
+//    } else {
+//        // Change text of button to inform user of state.
+//        [sender setTitle:@"Done" forState:UIControlStateNormal];
+//        // Enter editing mode.
+//        [self setEditing:YES animated:YES];
+//    }
+//}
 
 - (IBAction)addNewItem:(id)sender
 {
