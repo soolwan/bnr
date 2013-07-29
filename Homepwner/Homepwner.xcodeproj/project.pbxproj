@@ -10,6 +10,7 @@
 		4C3EE0AC178312D700225A64 /* DetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C3EE0AA178312D700225A64 /* DetailViewController.m */; };
 		4C3EE0AD178312D700225A64 /* DetailViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 4C3EE0AB178312D700225A64 /* DetailViewController.xib */; };
 		4C3EE0B017834DC000225A64 /* BNRImageStore.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C3EE0AF17834DC000225A64 /* BNRImageStore.m */; };
+		4C3EE0B31787029700225A64 /* HomepwnerNavigationController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C3EE0B21787029700225A64 /* HomepwnerNavigationController.m */; };
 		4CF2F576177CC87D000DE04F /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4CF2F575177CC87D000DE04F /* UIKit.framework */; };
 		4CF2F578177CC87D000DE04F /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4CF2F577177CC87D000DE04F /* Foundation.framework */; };
 		4CF2F57A177CC87D000DE04F /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4CF2F579177CC87D000DE04F /* CoreGraphics.framework */; };
@@ -30,6 +31,8 @@
 		4C3EE0AB178312D700225A64 /* DetailViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = DetailViewController.xib; sourceTree = "<group>"; };
 		4C3EE0AE17834DC000225A64 /* BNRImageStore.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BNRImageStore.h; sourceTree = "<group>"; };
 		4C3EE0AF17834DC000225A64 /* BNRImageStore.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BNRImageStore.m; sourceTree = "<group>"; };
+		4C3EE0B11787029700225A64 /* HomepwnerNavigationController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HomepwnerNavigationController.h; sourceTree = "<group>"; };
+		4C3EE0B21787029700225A64 /* HomepwnerNavigationController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HomepwnerNavigationController.m; sourceTree = "<group>"; };
 		4CF2F572177CC87D000DE04F /* Homepwner.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Homepwner.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		4CF2F575177CC87D000DE04F /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 		4CF2F577177CC87D000DE04F /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
@@ -98,6 +101,8 @@
 			children = (
 				4CF2F584177CC87D000DE04F /* HomepwnerAppDelegate.h */,
 				4CF2F585177CC87D000DE04F /* HomepwnerAppDelegate.m */,
+				4C3EE0B11787029700225A64 /* HomepwnerNavigationController.h */,
+				4C3EE0B21787029700225A64 /* HomepwnerNavigationController.m */,
 				4C3EE0A9178312D700225A64 /* DetailViewController.h */,
 				4C3EE0AA178312D700225A64 /* DetailViewController.m */,
 				4C3EE0AB178312D700225A64 /* DetailViewController.xib */,
@@ -203,6 +208,7 @@
 				4CF2F59A177DCAA7000DE04F /* BNRItemStore.m in Sources */,
 				4C3EE0AC178312D700225A64 /* DetailViewController.m in Sources */,
 				4C3EE0B017834DC000225A64 /* BNRImageStore.m in Sources */,
+				4C3EE0B31787029700225A64 /* HomepwnerNavigationController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -282,7 +288,9 @@
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "Homepwner/Homepwner-Prefix.pch";
 				INFOPLIST_FILE = "Homepwner/Homepwner-Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 6.1;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				TARGETED_DEVICE_FAMILY = "1,2";
 				WRAPPER_EXTENSION = app;
 			};
 			name = Debug;
@@ -293,7 +301,9 @@
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "Homepwner/Homepwner-Prefix.pch";
 				INFOPLIST_FILE = "Homepwner/Homepwner-Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 6.1;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				TARGETED_DEVICE_FAMILY = "1,2";
 				WRAPPER_EXTENSION = app;
 			};
 			name = Release;

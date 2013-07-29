@@ -8,6 +8,7 @@
 
 #import "HomepwnerAppDelegate.h"
 #import "ItemsViewController.h"
+#import "HomepwnerNavigationController.h"
 
 @implementation HomepwnerAppDelegate
 
@@ -20,8 +21,9 @@
     ItemsViewController *itemsViewController = [[ItemsViewController alloc] init];
 
     // Create an instance of a UINavigationController. It's stack only contains ItemsViewController.
-    UINavigationController *navController = [[UINavigationController alloc]
-                                             initWithRootViewController:itemsViewController];
+    // Switched to subclassing UINavigationController to do rotation in iOS 6 style.
+    HomepwnerNavigationController *navController = [[HomepwnerNavigationController alloc]
+                                                    initWithRootViewController:itemsViewController];
 
     // Place ItemsViewController's table view in the window heirarchy.
     //[[self window] setRootViewController:itemsViewController];
