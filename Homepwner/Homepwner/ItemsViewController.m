@@ -135,7 +135,8 @@ moveRowAtIndexPath:(NSIndexPath *)sourceIndexPath
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    DetailViewController *detailViewController = [[DetailViewController alloc] init];
+    //DetailViewController *detailViewController = [[DetailViewController alloc] init];
+    DetailViewController *detailViewController = [[DetailViewController alloc] initForNewItem:NO];  // New initializer
 
     NSArray *items = [[BNRItemStore sharedStore] allItems];
     BNRItem *selectedItem = [items objectAtIndex:[indexPath row]];
@@ -174,13 +175,27 @@ moveRowAtIndexPath:(NSIndexPath *)sourceIndexPath
     BNRItem *newItem = [[BNRItemStore sharedStore] createItem];
 
     // Figure out where that item is in the array.
-    int lastRow = [[[BNRItemStore sharedStore] allItems] indexOfObject:newItem];
-    
-    NSIndexPath *ip = [NSIndexPath indexPathForRow:lastRow inSection:0];
-
+    //int lastRow = [[[BNRItemStore sharedStore] allItems] indexOfObject:newItem];
+    //NSIndexPath *ip = [NSIndexPath indexPathForRow:lastRow inSection:0];
     // Insert this new row into the table.
-    [[self tableView] insertRowsAtIndexPaths:[NSArray arrayWithObject:ip]
-                            withRowAnimation:UITableViewRowAnimationTop];
+    //[[self tableView] insertRowsAtIndexPaths:[NSArray arrayWithObject:ip]
+    //                        withRowAnimation:UITableViewRowAnimationTop];
+
+    // We are going to present the detail view when we add a new item, rather than
+    // merely inserting a row.
+
+    DetailViewController *detailViewController = [[DetailViewController alloc] initForNewItem:YES];
+
+    [detailViewController setItem:newItem];
+
+    UINavigationController *navController = [[UINavigationController alloc]
+                                             initWithRootViewController:detailViewController];
+
+    [navController setModalPresentationStyle:UIModalPresentationFormSheet];
+
+    [self presentViewController:navController
+                       animated:YES
+                     completion:nil];
 }
 
 @end

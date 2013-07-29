@@ -26,6 +26,8 @@ UITextFieldDelegate, UIPopoverControllerDelegate>
 
 @property (nonatomic) BNRItem *item;
 
+- (id)initForNewItem:(BOOL)isNew;
+
 - (IBAction)takePicture:(id)sender;
 
 // First we changed DetailView to subclass UIControl instead

@@ -9,6 +9,7 @@
 #import "DetailViewController.h"
 #import "BNRItem.h"
 #import "BNRImageStore.h"
+#import "BNRItemStore.h"
 
 // Class extension. Put private interface things here.
 @interface DetailViewController ()
@@ -21,6 +22,36 @@
 {
     _item = item;
     [[self navigationItem] setTitle:[item itemName]];
+}
+
+- (id)initForNewItem:(BOOL)isNew
+{
+    self = [super initWithNibName:@"DetailViewController" bundle:nil];
+
+    if (self) {
+        if (isNew) {
+            UIBarButtonItem *doneItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemDone
+                                                                                      target:self
+                                                                                      action:@selector(save:)];
+            [[self navigationItem] setRightBarButtonItem:doneItem];
+
+            UIBarButtonItem *cancelItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemCancel
+                                                                                        target:self
+                                                                                        action:@selector(cancel:)];
+            [[self navigationItem] setLeftBarButtonItem:cancelItem];
+        }
+    }
+    
+    return self;
+}
+
+// Make it illegal to use the superclass's designated initializer.
+- (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
+{
+    @throw [NSException exceptionWithName:@"Wrong initializer"
+                                   reason:@"Use initForNewItem"
+                                 userInfo:nil];
+    return nil;
 }
 
 // Perform extra setup on the view here.
@@ -201,6 +232,24 @@ didFinishPickingMediaWithInfo:(NSDictionary *)info
 - (IBAction)backgroundTapped:(id)sender
 {
     [[self view] endEditing:YES];
+}
+
+#pragma mark - navigationItem actions
+
+- (void)save:(id)sender
+{
+    [[self presentingViewController] dismissViewControllerAnimated:YES
+                                                        completion:nil];
+}
+
+- (void)cancel:(id)sender
+{
+    // If the user cancelled, then remove the BNRItem from the store.
+    [[BNRItemStore sharedStore] removeItem:self.item];
+
+    [[self presentingViewController] dismissViewControllerAnimated:YES
+                                                        completion:nil];
+    
 }
 
 @end
