@@ -181,17 +181,25 @@ moveRowAtIndexPath:(NSIndexPath *)sourceIndexPath
     //[[self tableView] insertRowsAtIndexPaths:[NSArray arrayWithObject:ip]
     //                        withRowAnimation:UITableViewRowAnimationTop];
 
-    // We are going to present the detail view when we add a new item, rather than
+    // We are going to present the detail view modally when we add a new item, rather than
     // merely inserting a row.
 
     DetailViewController *detailViewController = [[DetailViewController alloc] initForNewItem:YES];
 
     [detailViewController setItem:newItem];
 
+    // On iPad, our modal presentation style FormSheet doesn't trigger viewWillAppear: or viewDidAppear:.
+    // To get our tableView reloaded, we set a block on detailViewController that will be called
+    // when details navigationItem buttons are presssed.
+    [detailViewController setDismissBlock:^{
+        [[self tableView] reloadData];
+    }];
+
     UINavigationController *navController = [[UINavigationController alloc]
                                              initWithRootViewController:detailViewController];
 
-    [navController setModalPresentationStyle:UIModalPresentationFormSheet];
+    [navController setModalPresentationStyle:UIModalPresentationFormSheet]; // iPad
+    [navController setModalTransitionStyle:UIModalTransitionStyleFlipHorizontal];
 
     [self presentViewController:navController
                        animated:YES

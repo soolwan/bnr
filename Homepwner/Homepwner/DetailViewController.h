@@ -26,6 +26,10 @@ UITextFieldDelegate, UIPopoverControllerDelegate>
 
 @property (nonatomic) BNRItem *item;
 
+@property (nonatomic, copy) void (^dismissBlock)(void);  // Gets created in itemsViewController
+                                                         // because that's where the tableView is.
+
+// Designated initializer.
 - (id)initForNewItem:(BOOL)isNew;
 
 - (IBAction)takePicture:(id)sender;

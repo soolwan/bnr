@@ -29,15 +29,19 @@
     self = [super initWithNibName:@"DetailViewController" bundle:nil];
 
     if (self) {
+        // When we are making a new item, place a done and cancel
+        // button on the navigationItem.
         if (isNew) {
-            UIBarButtonItem *doneItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemDone
-                                                                                      target:self
-                                                                                      action:@selector(save:)];
+            UIBarButtonItem *doneItem =
+            [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemDone
+                                                          target:self
+                                                          action:@selector(save:)];
             [[self navigationItem] setRightBarButtonItem:doneItem];
 
-            UIBarButtonItem *cancelItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemCancel
-                                                                                        target:self
-                                                                                        action:@selector(cancel:)];
+            UIBarButtonItem *cancelItem =
+            [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemCancel
+                                                          target:self
+                                                          action:@selector(cancel:)];
             [[self navigationItem] setLeftBarButtonItem:cancelItem];
         }
     }
@@ -239,7 +243,7 @@ didFinishPickingMediaWithInfo:(NSDictionary *)info
 - (void)save:(id)sender
 {
     [[self presentingViewController] dismissViewControllerAnimated:YES
-                                                        completion:nil];
+                                                        completion:self.dismissBlock];
 }
 
 - (void)cancel:(id)sender
@@ -248,7 +252,7 @@ didFinishPickingMediaWithInfo:(NSDictionary *)info
     [[BNRItemStore sharedStore] removeItem:self.item];
 
     [[self presentingViewController] dismissViewControllerAnimated:YES
-                                                        completion:nil];
+                                                        completion:self.dismissBlock];
     
 }
 
