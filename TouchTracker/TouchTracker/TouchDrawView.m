@@ -32,6 +32,12 @@
     return self;
 }
 
+// Allow view to become first responder so we can show the UIMenuController.
+- (BOOL)canBecomeFirstResponder
+{
+    return YES;
+}
+
 - (void)drawRect:(CGRect)rect
 {
     CGContextRef context = UIGraphicsGetCurrentContext();
@@ -101,6 +107,15 @@
     [self setNeedsDisplay];
 }
 
+- (void)deleteLine:(id)sender
+{
+    // Remove the selected line from the list of completeLines.
+    [completeLines removeObject:[self selectedLine]];
+
+    // Redraw everything.
+    [self setNeedsDisplay];
+}
+
 #pragma mark UIGestureRecognizer Actions
 
 - (void)tap:(UIGestureRecognizer *)gr
@@ -113,6 +128,28 @@
     // If we just tapped, remove all lines in process
     // so that a tap doesn't result in a new line.
     [linesInProcess removeAllObjects];
+
+    if ([self selectedLine]) {
+        [self becomeFirstResponder];
+
+        // Grab the menu controller.
+        UIMenuController *menu = [UIMenuController sharedMenuController];
+
+        // Create a new "Delete" UIMenuItem.
+        UIMenuItem *deleteItem = [[UIMenuItem alloc] initWithTitle:@"Delete"
+                                                            action:@selector(deleteLine:)];
+        [menu setMenuItems:[NSArray arrayWithObject:deleteItem]];
+
+        // Tell the menu where it should come from and show it.
+        [menu setTargetRect:CGRectMake(point.x, point.y, 2, 2) inView:self];
+        [menu setMenuVisible:YES animated:YES];
+
+    } else {
+        // Hide the menu if no line is selected.
+        [[UIMenuController sharedMenuController] setMenuVisible:NO
+                                                       animated:YES];
+    }
+
     [self setNeedsDisplay];
 }
 
