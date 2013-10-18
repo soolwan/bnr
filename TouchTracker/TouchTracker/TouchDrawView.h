@@ -8,10 +8,16 @@
 
 #import <Foundation/Foundation.h>
 
+@class Line;
+
 @interface TouchDrawView : UIView {
     NSMutableDictionary *linesInProcess;
     NSMutableArray *completeLines;
 }
+
+@property (nonatomic, weak) Line *selectedLine;
+
+- (Line *)lineAtPoint:(CGPoint)p;
 
 - (void)clearAll;
 

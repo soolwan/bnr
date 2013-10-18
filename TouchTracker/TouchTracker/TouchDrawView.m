@@ -22,6 +22,11 @@
 
         [self setBackgroundColor:[UIColor whiteColor]];
         [self setMultipleTouchEnabled:YES];
+
+        UITapGestureRecognizer *tapRecognizer =
+        [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(tap:)];
+
+        [self addGestureRecognizer:tapRecognizer];
     }
 
     return self;
@@ -40,6 +45,50 @@
         CGContextAddLineToPoint(context, [line end].x, [line end].y);
         CGContextStrokePath(context);
     }
+
+    // Track lines in process in red.
+    [[UIColor redColor] set];
+    for (NSValue *v in linesInProcess) {
+        Line *line = [linesInProcess objectForKey:v];
+        CGContextMoveToPoint(context, [line begin].x, [line begin].y);
+        CGContextAddLineToPoint(context, [line end].x, [line end].y);
+        CGContextStrokePath(context);
+    }
+
+    // If there is a selected line, draw it green.
+    if ([self selectedLine]) {
+        [[UIColor greenColor] set];
+        CGContextMoveToPoint(context, [[self selectedLine] begin].x, [[self selectedLine] begin].y);
+        CGContextAddLineToPoint(context, [[self selectedLine] end].x, [[self selectedLine] end].y);
+        CGContextStrokePath(context);
+    }
+}
+
+- (Line *)lineAtPoint:(CGPoint)p
+{
+    // Find a line close to p.
+    for (Line *l in completeLines) {
+        CGPoint start = [l begin];
+        CGPoint end = [l end];
+
+        // Check a few points on the line.
+        for (float t = 0.0; t <= 1.0; t += 0.05) {
+
+            // Add portions of the extent to each starting value to check each
+            // spot on the line.
+            float x = start.x + (t * (end.x - start.x));  // end.x - start.x is the x extent.
+            float y = start.y + (t * (end.y - start.y));  // end.y - start.y is the y extent.
+
+            // If the tapped point is within 20 points, let's return this line.
+            // hypot takes two side sizes and does sqrt(side1 * side1 + side2 * side2).
+            if (hypot(x - p.x, y - p.y) < 20.0) {
+                return l;
+            }
+        }
+    }
+
+    // If nothing is close enough to the tapped point, then we didn't select a line.
+    return nil;
 }
 
 - (void)clearAll
@@ -49,6 +98,21 @@
     [completeLines removeAllObjects];
 
     // Redraw
+    [self setNeedsDisplay];
+}
+
+#pragma mark UIGestureRecognizer Actions
+
+- (void)tap:(UIGestureRecognizer *)gr
+{
+    NSLog(@"Recognized tap");
+
+    CGPoint point = [gr locationInView:self];
+    [self setSelectedLine:[self lineAtPoint:point]];
+
+    // If we just tapped, remove all lines in process
+    // so that a tap doesn't result in a new line.
+    [linesInProcess removeAllObjects];
     [self setNeedsDisplay];
 }
 
