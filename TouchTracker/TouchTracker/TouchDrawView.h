@@ -10,9 +10,11 @@
 
 @class Line;
 
-@interface TouchDrawView : UIView {
+@interface TouchDrawView : UIView <UIGestureRecognizerDelegate> {
     NSMutableDictionary *linesInProcess;
     NSMutableArray *completeLines;
+
+    UIPanGestureRecognizer *moveRecognizer;
 }
 
 @property (nonatomic, weak) Line *selectedLine;

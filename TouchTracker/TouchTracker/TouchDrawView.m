@@ -25,8 +25,17 @@
 
         UITapGestureRecognizer *tapRecognizer =
         [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(tap:)];
-
         [self addGestureRecognizer:tapRecognizer];
+
+        UILongPressGestureRecognizer *pressRecognizer =
+        [[UILongPressGestureRecognizer alloc] initWithTarget:self action:@selector(longPress:)];
+        [self addGestureRecognizer:pressRecognizer];
+
+        moveRecognizer = [[UIPanGestureRecognizer alloc] initWithTarget:self
+                                                                 action:@selector(moveLine:)];
+        [moveRecognizer setDelegate:self];
+        [moveRecognizer setCancelsTouchesInView:NO];
+        [self addGestureRecognizer:moveRecognizer];
     }
 
     return self;
@@ -116,6 +125,19 @@
     [self setNeedsDisplay];
 }
 
+#pragma mark UIGestureRecognizer Delegate Methods
+
+// Allow the pan gesture to work within the long press gesture.
+- (BOOL)gestureRecognizer:(UIGestureRecognizer *)gestureRecognizer
+shouldRecognizeSimultaneouslyWithGestureRecognizer:(UIGestureRecognizer *)otherGestureRecognizer
+{
+    if (gestureRecognizer == moveRecognizer) {
+        return YES;
+    }
+
+    return NO;
+}
+
 #pragma mark UIGestureRecognizer Actions
 
 - (void)tap:(UIGestureRecognizer *)gr
@@ -153,6 +175,55 @@
     [self setNeedsDisplay];
 }
 
+- (void)longPress:(UIGestureRecognizer *)gr
+{
+    if ([gr state] == UIGestureRecognizerStateBegan) {
+        CGPoint point = [gr locationInView:self];
+        [self setSelectedLine:[self lineAtPoint:point]];
+
+        if ([self selectedLine]) {
+            [linesInProcess removeAllObjects];
+        }
+    } else if ([gr state] == UIGestureRecognizerStateEnded) {
+        [self setSelectedLine:nil];
+    }
+
+    [self setNeedsDisplay];
+}
+
+- (void)moveLine:(UIPanGestureRecognizer *)gr
+{
+    // If we haven't selected a line, we don't do anything here.
+    if (![self selectedLine]) {
+        return;
+    }
+
+    // When the pan recognizer changes its position...
+    if ([gr state] == UIGestureRecognizerStateChanged) {
+        // How far has the pan moved?
+        CGPoint translation = [gr translationInView:self];
+
+        // Add the translation to the current begin and end points of the line.
+        CGPoint begin = [[self selectedLine] begin];
+        CGPoint end = [[self selectedLine] end];
+
+        begin.x += translation.x;
+        begin.y += translation.y;
+        end.x += translation.x;
+        end.y += translation.y;
+
+        // Set the new beginning and end points of the line.
+        [[self selectedLine] setBegin:begin];
+        [[self selectedLine] setEnd:end];
+
+        // Redraw the screen.
+        [self setNeedsDisplay];
+
+        // Need to zero-out the pan to get the delta each time.
+        [gr setTranslation:CGPointZero inView:self];
+    }
+}
+
 #pragma mark UIResponder Touch Events
 
 - (void)touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event
@@ -163,6 +234,8 @@
             [self clearAll];
             return;
         }
+
+        if (self.selectedLine) break;
 
         // Use the touch object (packed in an NSValue) as the key.
         NSValue *key = [NSValue valueWithNonretainedObject:t];
@@ -180,6 +253,8 @@
 
 - (void)touchesMoved:(NSSet *)touches withEvent:(UIEvent *)event
 {
+    if (self.selectedLine) return;
+
     // Update linesInProcess with moved touches.
     for (UITouch *t in touches) {
         NSValue *key = [NSValue valueWithNonretainedObject:t];
@@ -198,6 +273,8 @@
 
 - (void)endTouches:(NSSet *)touches
 {
+    if (self.selectedLine) return;
+
     // Remove ending touches from dictionary.
     for (UITouch *t in touches) {
         NSValue *key = [NSValue valueWithNonretainedObject:t];
