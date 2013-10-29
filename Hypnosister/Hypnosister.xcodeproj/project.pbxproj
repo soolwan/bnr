@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		4CB5E25C182035E6001508B2 /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4CB5E25B182035E6001508B2 /* QuartzCore.framework */; };
 		4CC89ED4176A38BA009DD808 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4CC89ED3176A38BA009DD808 /* UIKit.framework */; };
 		4CC89ED6176A38BA009DD808 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4CC89ED5176A38BA009DD808 /* Foundation.framework */; };
 		4CC89ED8176A38BA009DD808 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4CC89ED7176A38BA009DD808 /* CoreGraphics.framework */; };
@@ -20,6 +21,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		4CB5E25B182035E6001508B2 /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
 		4CC89ED0176A38BA009DD808 /* Hypnosister.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Hypnosister.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		4CC89ED3176A38BA009DD808 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 		4CC89ED5176A38BA009DD808 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
@@ -45,6 +47,7 @@
 				4CC89ED4176A38BA009DD808 /* UIKit.framework in Frameworks */,
 				4CC89ED6176A38BA009DD808 /* Foundation.framework in Frameworks */,
 				4CC89ED8176A38BA009DD808 /* CoreGraphics.framework in Frameworks */,
+				4CB5E25C182035E6001508B2 /* QuartzCore.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -74,6 +77,7 @@
 				4CC89ED3176A38BA009DD808 /* UIKit.framework */,
 				4CC89ED5176A38BA009DD808 /* Foundation.framework */,
 				4CC89ED7176A38BA009DD808 /* CoreGraphics.framework */,
+				4CB5E25B182035E6001508B2 /* QuartzCore.framework */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -287,6 +291,7 @@
 				4CC89EEF176A38BA009DD808 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};

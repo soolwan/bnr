@@ -10,6 +10,7 @@
 		4C2E1B6C176F852300A5824C /* HypnosisView.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C2E1B6B176F852300A5824C /* HypnosisView.m */; };
 		4C2E1B6F176F879A00A5824C /* TimeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C2E1B6E176F879A00A5824C /* TimeViewController.m */; };
 		4C2E1B71176F89ED00A5824C /* TimeViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 4C2E1B70176F89ED00A5824C /* TimeViewController.xib */; };
+		4CB5E25E182038C0001508B2 /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4CB5E25D182038C0001508B2 /* QuartzCore.framework */; };
 		4CC89F00176BA0EE009DD808 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4CC89EFF176BA0EE009DD808 /* UIKit.framework */; };
 		4CC89F02176BA0EE009DD808 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4CC89F01176BA0EE009DD808 /* Foundation.framework */; };
 		4CC89F04176BA0EE009DD808 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4CC89F03176BA0EE009DD808 /* CoreGraphics.framework */; };
@@ -32,6 +33,7 @@
 		4C2E1B6D176F879A00A5824C /* TimeViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TimeViewController.h; sourceTree = "<group>"; };
 		4C2E1B6E176F879A00A5824C /* TimeViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TimeViewController.m; sourceTree = "<group>"; };
 		4C2E1B70176F89ED00A5824C /* TimeViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = TimeViewController.xib; sourceTree = "<group>"; };
+		4CB5E25D182038C0001508B2 /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
 		4CC89EFC176BA0EE009DD808 /* HypnoTime.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = HypnoTime.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		4CC89EFF176BA0EE009DD808 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 		4CC89F01176BA0EE009DD808 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
@@ -61,6 +63,7 @@
 				4CC89F00176BA0EE009DD808 /* UIKit.framework in Frameworks */,
 				4CC89F02176BA0EE009DD808 /* Foundation.framework in Frameworks */,
 				4CC89F04176BA0EE009DD808 /* CoreGraphics.framework in Frameworks */,
+				4CB5E25E182038C0001508B2 /* QuartzCore.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -90,6 +93,7 @@
 				4CC89EFF176BA0EE009DD808 /* UIKit.framework */,
 				4CC89F01176BA0EE009DD808 /* Foundation.framework */,
 				4CC89F03176BA0EE009DD808 /* CoreGraphics.framework */,
+				4CB5E25D182038C0001508B2 /* QuartzCore.framework */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
