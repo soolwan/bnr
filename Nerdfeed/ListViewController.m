@@ -25,6 +25,20 @@
     return self;
 }
 
+- (NSUInteger)supportedInterfaceOrientations
+{
+    if ([[UIDevice currentDevice] userInterfaceIdiom] == UIUserInterfaceIdiomPad) {
+        return UIInterfaceOrientationMaskAll;
+    } else {
+        return UIInterfaceOrientationMaskPortrait;
+    }
+}
+
+- (UIInterfaceOrientation)preferredInterfaceOrientationForPresentation
+{
+    return UIInterfaceOrientationPortrait;
+}
+
 - (void)fetchEntries
 {
     // Create a new data container for the stuff that comes back from the service.
@@ -162,7 +176,9 @@ didStartElement:(NSString *)elementName
 {
     // Push the web view controller onto the navigation stack — this implicitly
     // creates the web view controller's view the first time through.
-    [[self navigationController] pushViewController:webViewController animated:YES];
+    if (!self.splitViewController) {
+        [[self navigationController] pushViewController:webViewController animated:YES];
+    }
 
     // Grab the selected item.
     RSSItem *entry = [[channel items] objectAtIndex:[indexPath row]];

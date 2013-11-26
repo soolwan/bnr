@@ -10,6 +10,11 @@
 
 @implementation WebViewController
 
+- (UIWebView *)webView
+{
+    return (UIWebView *)[self view];
+}
+
 - (void)loadView
 {
     // Create an instance of a UIWebVew as large as the screen.
@@ -22,9 +27,18 @@
     [self setView:wv];
 }
 
-- (UIWebView *)webView
+- (NSUInteger)supportedInterfaceOrientations
 {
-    return (UIWebView *)[self view];
+    if ([[UIDevice currentDevice] userInterfaceIdiom] == UIUserInterfaceIdiomPad) {
+        return UIInterfaceOrientationMaskAll;
+    } else {
+        return UIInterfaceOrientationMaskPortrait;
+    }
+}
+
+- (UIInterfaceOrientation)preferredInterfaceOrientationForPresentation
+{
+    return UIInterfaceOrientationPortrait;
 }
 
 @end
